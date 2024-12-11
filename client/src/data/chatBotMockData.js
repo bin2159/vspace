@@ -1,0 +1,1 @@
+export const chatResponse =["test1","test2","test3"];

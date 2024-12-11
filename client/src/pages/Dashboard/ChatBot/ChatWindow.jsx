@@ -1,12 +1,11 @@
-import SearchField from './SearchField';
-
+import SearchField from "./SearchField";
+import ChatsDisplay from "./ChatsDisplay";
 export default function ChatWindow() {
-
   return (
-    <div className="flex flex-col justify-between h-full">
-
+    <div >
       {/* Input Form */}
-      <SearchField/>
+      <ChatsDisplay />
+      <SearchField />
     </div>
   );
 }
