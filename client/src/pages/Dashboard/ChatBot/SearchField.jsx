@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { ChatContext } from "@/context/ChatContext";
 
 export default function SearchField() {
-  const { chatText, setChatText } = useContext(ChatContext);
+  const { chatText, setChatText, loading, setLoading } =
+    useContext(ChatContext);
   const [promptText, setPromptText] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const getChatResponse = async () => {
     try {
@@ -21,7 +21,10 @@ export default function SearchField() {
       if (response.ok) {
         setChatText((prev) => [...prev, data.response]); // Assuming the API response contains `response` field
       } else {
-        console.error("Error in API response:", data.message || "Unknown error");
+        console.error(
+          "Error in API response:",
+          data.message || "Unknown error"
+        );
       }
     } catch (error) {
       console.error("Error fetching chat response:", error);
@@ -55,16 +58,16 @@ export default function SearchField() {
   return (
     <>
       <form onSubmit={handleSubmit} className="relative">
-        <div className="overflow-hidden rounded-lg border border-gray-300 shadow-sm p-6">
+        <div className="flex flex-col rounded-xl bg-gray-200 shadow-sm px-4 py-2">
           <label htmlFor="promtInput" className="sr-only">
             Prompt Input
           </label>
           <textarea
             id="promtInput"
             name="promtInput"
-            rows={1}
+            rows={2}
             placeholder="Write your prompt..."
-            className={`block w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 ${
+            className={`w-full resize-none border-0 bg-transparent text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 focus:outline-none focus:ring-0 ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             value={promptText}
@@ -72,27 +75,29 @@ export default function SearchField() {
             onKeyDown={handleKeyDown}
             disabled={loading}
           />
-        </div>
-        <div className="flex items-center justify-between space-x-3 border-t border-gray-200 px-2 py-2 sm:px-3">
-          <div className="flex">
-            {loading && (
-              <div className="loader border-t-2 border-indigo-600 rounded-full w-5 h-5 animate-spin"></div>
-            )}
-          </div>
-          <div className="flex-shrink-0">
+
+          <div className="flex justify-end">
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-50"
+              className="inline-flex items-center rounded-full bg-indigo-600 px-4 py-2 text-sm outline-none font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-50"
             >
-              {loading ? "Loading..." : "Submit"}
+              {loading ? (
+                <div
+                  className="loader border-t-2 border-white border-opacity-80 border-white rounded-full w-4 h-4 animate-spin"
+                  aria-label="Loading"
+                ></div>
+              ) : (
+                "Submit"
+              )}
             </button>
           </div>
         </div>
       </form>
+
       <style>{`
         .loader {
-          border: 2px solid transparent;
+          border: 2px solid dashed;
         }
       `}</style>
     </>
