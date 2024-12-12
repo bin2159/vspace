@@ -6,8 +6,8 @@ const session = require('express-session');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/auth');
 const MongoStore = require('connect-mongo');
-const {attachAI} = require('./pins/ai');
-const aiRoutes = require('./routes/ai');
+const {initAI} = require('./pins/ai');
+const askRoutes = require('./routes/ask');
 const cors = require('cors');
 const app = express();
 
@@ -39,12 +39,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 //Attach AI
 app.use((req, res, next) => {
-  attachAI(req)
+  initAI(req)
   next()
 })
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/ask', aiRoutes);
+app.use('/api/ai', askRoutes);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI)

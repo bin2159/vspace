@@ -1,5 +1,5 @@
-const {attachAI} = require('../pins/ai');
+const {initAI} = require('../pins/ai');
 exports.attach = (req, res, next) => {
-  attachAI(req)
+  initAI(req)
   next()
 }
