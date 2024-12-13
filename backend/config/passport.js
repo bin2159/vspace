@@ -1,24 +1,23 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/User');
-const { google } = require('googleapis');
-
+import passport from 'passport'
+import { Strategy as LocalStrategy } from 'passport-local'
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
+import User from '../models/User.js'
+import { google } from 'googleapis'
 
 function generateRandomUsername(length = 8) {
   const adjectives = ['Fast', 'Lucky', 'Silent', 'Brave', 'Clever', 'Happy', 'Quick', 'Fierce', 'Wild', 'Bright'];
   const nouns = ['Tiger', 'Eagle', 'Shark', 'Falcon', 'Bear', 'Lion', 'Wolf', 'Dragon', 'Hawk', 'Phoenix'];
   const specialChars = '!@#$%^&*()_+[]{}|;:,.<>?';
-  
+
   // Randomly choose an adjective, a noun, a random 2-digit number, and a special character
   const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
   const noun = nouns[Math.floor(Math.random() * nouns.length)];
   const number = Math.floor(Math.random() * 90) + 10; // Random 2-digit number (10-99)
   const specialChar = specialChars[Math.floor(Math.random() * specialChars.length)];
-  
+
   // Combine them to create a username
   const username = `${adjective}${noun}${number}${specialChar}`;
-  
+
   return username;
 }
 
@@ -106,4 +105,4 @@ passport.revokeGoogleTokens = async (user) => {
   }
 };
 
-module.exports = passport;
+export default passport;

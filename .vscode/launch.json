@@ -12,6 +12,9 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
+      "runtimeArgs": [
+        "--experimental-print-required-tla"
+      ],
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"

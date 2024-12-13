@@ -1,10 +1,11 @@
-const express = require('express');
-const passport = require('passport');
-const router = express.Router();
-const User = require('../models/User');
-const nodemailer = require('nodemailer');
-const PasswordReset = require('../models/PasswordReset');
-const { isAuthenticated, isNotAuthenticated, checkRole } = require('../middlewares/auth');
+import express from 'express'
+import passport from 'passport'
+import User from '../models/User.js'
+import nodemailer from 'nodemailer'
+import PasswordReset from '../models/PasswordReset.js'
+import { isAuthenticated, isNotAuthenticated, checkRole } from '../middlewares/auth.js'
+
+const router = express.Router()
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Or your email service
   auth: {
@@ -231,4 +232,4 @@ router.get('/admin-dashboard',
   }
 );
 
-module.exports = router;
+export default router

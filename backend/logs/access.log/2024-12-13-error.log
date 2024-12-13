@@ -1,0 +1,4 @@
+{"timestamp":"2024-12-13T01:50:27.863Z","level":"error","message":"Gemini Request:","metadata":{"prompt":"Hi"}}
+{"timestamp":"2024-12-13T01:51:34.458Z","level":"error","message":"Gemini Request:","metadata":{"prompt":"Hi"}}
+{"timestamp":"2024-12-13T01:51:49.960Z","level":"error","message":"Gemini Request:","metadata":{"prompt":"Hi","text":"Hello there! How can I help you today?"}}
+{"timestamp":"2024-12-13T01:55:07.291Z","level":"error","message":"Gemini Request:","metadata":{"prompt":"Hi","text":"Hello there! How can I assist you today?"}}

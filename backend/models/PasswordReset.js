@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
+
 
 const PasswordResetSchema = new mongoose.Schema({
   user: {
@@ -17,4 +18,4 @@ const PasswordResetSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('PasswordReset', PasswordResetSchema)
+export default mongoose.model('PasswordReset', PasswordResetSchema)

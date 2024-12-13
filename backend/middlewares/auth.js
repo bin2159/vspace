@@ -29,8 +29,4 @@ const isNotAuthenticated = (req, res, next) => {
   res.status(400).json({ message: 'Already authenticated' });
 };
 
-module.exports = {
-  isAuthenticated,
-  isNotAuthenticated,
-  checkRole
-};
+export { isAuthenticated, isNotAuthenticated, checkRole }
