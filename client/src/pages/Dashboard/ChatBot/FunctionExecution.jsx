@@ -12,13 +12,19 @@ function Editor() {
       // Use eval to execute the code in the context of the browser
       // Be careful with eval, as it can introduce security risks if user input is not sanitized
       eval(newValue);
+     const output = JSON.parse(newValue);
+     output();
     } catch (error) {
       console.error("Error executing code:", error);
     }
   }
 
   function onChange(newValue) {
-    console.log("Code changed:", newValue);
+    // console.log("Code changed:", newValue);
+    const output = JSON.parse(JSON.stringify(newValue));
+    const dynamicFunction =  new Function(output);
+    dynamicFunction();
+    // output();
   }
 
   return (
@@ -38,8 +44,8 @@ function Editor() {
             showPrintMargin={true}
             showGutter={true}
             highlightActiveLine={true}
-            value={`function onLoad(editor) {
-              console.log("i've loaded");
+            value={`function onLoad() {
+              console.log("i loaded");
             }`}
             setOptions={{
               enableBasicAutocompletion: true,

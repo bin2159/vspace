@@ -69,7 +69,7 @@ export default function SearchField() {
   return (
     <>
       <form onSubmit={handleSubmit} className="relative">
-        <div className="flex flex-col rounded-xl bg-gray-200 shadow-sm px-4 py-2 mt-16">
+        <div >
           <label htmlFor="promtInput" className="sr-only">
             Prompt Input
           </label>
@@ -87,29 +87,24 @@ export default function SearchField() {
             disabled={loading}
           />
 
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full mt-2.5">
             <div className="flex justify-start">
               <DropdownMenu>
-                <DropdownMenuTrigger className="bg-gray-500 text-white inline-flex items-center px-4 py-2 rounded-full border border-gray-300 hover:bg-gray-50">
-                  {ai}
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="min-w-[200px] bg-white border border-gray-300 rounded-xl mt-1 shadow-lg">
+                <DropdownMenuTrigger><Button>{ai}</Button></DropdownMenuTrigger>
+                <DropdownMenuContent>
                   <DropdownMenuGroup>
                     <DropdownMenuItem
-                      onSelect={()=>setAi("gemini")}
-                      className="px-4 py-2 hover:bg-gray-200"
+                      onSelect={() => setAi("gemini")}
                     >
                       Gemini
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      onSelect={()=>setAi("openai")}
-                      className="px-4 py-2 hover:bg-gray-200"
+                      onSelect={() => setAi("openai")}
                     >
                       OpenAI
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      onSelect={()=>setAi("claude")}
-                      className="px-4 py-2 hover:bg-gray-200"
+                      onSelect={() => setAi("claude")}
                     >
                       Claude
                     </DropdownMenuItem>
@@ -118,11 +113,7 @@ export default function SearchField() {
               </DropdownMenu>
             </div>
             <div className="flex justify-end">
-              <Button
-                type="submit"
-                disabled={loading}
-                className="inline-flex items-center rounded-full bg-indigo-600 px-4 py-2 text-sm outline-none font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-50"
-              >
+              <Button type="submit" disabled={loading}>
                 {loading ? (
                   <>
                     <div
