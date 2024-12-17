@@ -173,17 +173,17 @@ class AIController {
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
-      req.logger.info('Gemini Request:', { prompt , text});
-      res.json({
+      return {
         success: true,
         response: text
-      });
+      }
+
     } catch (error) {
       console.error('Error processing Gemini request:', error);
-      res.status(500).json({
+      return {
         success: false,
         error: error.message || 'Failed to process request'
-      });
+      };
     }
   };
 
@@ -204,16 +204,16 @@ class AIController {
         messages: [{ role: "user", content: prompt }]
       });
 
-      res.json({
+      return {
         success: true,
         response: response.content[0].text.trim()
-      });
+      };
     } catch (error) {
       console.error('Error processing Claude request:', error);
-      res.status(500).json({
+      return {
         success: false,
         error: error.message || 'Failed to process request'
-      });
+      };
     }
   };
 
@@ -233,16 +233,16 @@ class AIController {
         messages: [{ role: "user", content: prompt }],
       });
 
-      res.json({
+      return{
         success: true,
         response: completion.choices[0].message.content.trim()
-      });
+      };
     } catch (error) {
       console.error('Error processing OpenAI request:', error);
-      res.status(500).json({
+      return {
         success: false,
         error: error.message || 'Failed to process request'
-      });
+      };
     }
   };
 

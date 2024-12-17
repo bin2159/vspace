@@ -5,23 +5,28 @@ const router = express.Router()
 const defaultAiController = (req, res) => {
   res.send(`Response from ${req.params.ai} AI`);
 };
-router.post('/ask', (req, res, next) => {
+router.post('/ask',async (req, res, next) => {
   const ai = new AIController()
   const { ai:selectedAi} = req.body;
+  let result = ''
   switch (selectedAi.toLowerCase()) {
     case 'gemini':
-      ai.geminiController(req, res);
+      result = await ai.geminiController(req, res);
       break;
     case 'openai':
-      ai.openAIController(req, res);
+      result = await ai.openAIController(req, res);
       break;
     case 'claude':
-      ai.claudeController(req, res);
+      result = await ai.claudeController(req, res);
       break;
     default:
       defaultAiController(req, res);
       break;
   }
+  if(result.success === false){
+    res.status(500).json(result)
+  }
+  res.json(result)
 });
 
 export default router

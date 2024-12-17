@@ -9,6 +9,7 @@ import MongoStore from 'connect-mongo'
 // import { initAI } from './pins/init.js'
 import { attachAI } from './middlewares/attach.js'
 import askRoutes from './routes/ask.js'
+import execRoutes from './routes/exec.js'
 import cors from 'cors'
 
 const app = express()
@@ -47,6 +48,7 @@ app.use(attachAI)
 // Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/ai', askRoutes)
+app.use('/api/exec',execRoutes)
 
 // MongoDB Connection
 mongoose
