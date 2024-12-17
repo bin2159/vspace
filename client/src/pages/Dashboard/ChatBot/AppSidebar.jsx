@@ -20,7 +20,7 @@ const items = [
   },
   {
     title: "Function execution",
-    url: "funexec",
+    url: "editor",
     icon: Code,
   },
   {

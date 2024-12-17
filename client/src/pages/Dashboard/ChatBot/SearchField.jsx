@@ -1,28 +1,36 @@
 import { useContext, useState } from "react";
 import { ChatContext } from "@/context/ChatContext";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button"
-
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function SearchField() {
   const { chatText, setChatText, loading, setLoading } =
     useContext(ChatContext);
   const [promptText, setPromptText] = useState("");
+  const [ai, setAi] = useState("gemini");
 
   const getChatResponse = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:4000/api/ask/gemini", {
+      const response = await fetch("http://localhost:4000/api/ai/ask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: promptText }),
+        body: JSON.stringify({ ai: ai, prompt: promptText }),
       });
       const data = await response.json();
 
       if (response.ok) {
-        setChatText((prev) => [...prev, data.response]); // Assuming the API response contains `response` field
+        const parsedResponse = data.response.replace(/\\n/g, "\n");
+        setChatText((prev) => [...prev, parsedResponse]); // Assuming the API response contains `response` field
       } else {
         console.error(
           "Error in API response:",
@@ -61,7 +69,7 @@ export default function SearchField() {
   return (
     <>
       <form onSubmit={handleSubmit} className="relative">
-        <div className="flex flex-col rounded-xl bg-gray-200 shadow-sm px-4 py-2">
+        <div >
           <label htmlFor="promtInput" className="sr-only">
             Prompt Input
           </label>
@@ -79,24 +87,46 @@ export default function SearchField() {
             disabled={loading}
           />
 
-          <div className="flex justify-end">
-            <Button
-              type="submit"
-              disabled={loading}
-              className="inline-flex items-center rounded-full bg-indigo-600 px-4 py-2 text-sm outline-none font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-50"
-            >
-              {loading ? (
-                <>
-                  <div
-                    className="loader border-t-2 border-white border-opacity-80 border-white rounded-full w-4 h-4 animate-spin"
-                    aria-label="Loading"
-                  ></div>
-                  <div>Please wait</div>
-                </>
-              ) : (
-                "Submit"
-              )}
-            </Button>
+          <div className="flex justify-between w-full mt-2.5">
+            <div className="flex justify-start">
+              <DropdownMenu>
+                <DropdownMenuTrigger><Button>{ai}</Button></DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem
+                      onSelect={() => setAi("gemini")}
+                    >
+                      Gemini
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => setAi("openai")}
+                    >
+                      OpenAI
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => setAi("claude")}
+                    >
+                      Claude
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <div className="flex justify-end">
+              <Button type="submit" disabled={loading}>
+                {loading ? (
+                  <>
+                    <div
+                      className="loader border-t-2 border-white border-opacity-80 border-white rounded-full w-4 h-4 animate-spin"
+                      aria-label="Loading"
+                    ></div>
+                    <div>Please wait</div>
+                  </>
+                ) : (
+                  "Submit"
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       </form>
