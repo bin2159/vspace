@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Chat from "./pages/Dashboard/Chat/Chat";
-import ChatBot from "./pages/Dashboard/ChatBot/ChatBot";
+import ChatBot from "./pages/Dashboard/AppFunctions/ChatBot";
 // import { useAuth } from './context/AuthContext'
 import Login from "./pages/Login/Login";
 // import Register from './components/Register';
@@ -14,7 +14,7 @@ import Login from "./pages/Login/Login";
 // import ForgotPassword from './components/ForgotPassword';
 // import ResetPassword from './components/ResetPassword';
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Editor from "./pages/Dashboard/ChatBot/FunctionExecution";
+import Editor from "./pages/Dashboard/AppFunctions/FunctionExecution";
 // import Test from './components/Test';
 // import ChatLayout from './components/Chat/ChatLayout';
 

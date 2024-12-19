@@ -16,14 +16,13 @@ function Editor() {
   const onRunCode = async () => {
     try {
       const aceValue = aceEditorRef.current?.editor.getValue(); // Get the value directly from the editor
-      const response = await fetch("http://localhost:4000/api/ai/ask", {
+      const response = await fetch("http://localhost:4000/api/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ai: "gemini",
-          prompt: `Just return the output of the following code and nothing else, but if there are syntax errors, please point them out ${aceValue}`,
+          code: `${aceValue}`,
         }),
       });
       const data = await response.json();
