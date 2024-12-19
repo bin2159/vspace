@@ -16,7 +16,7 @@ function Editor() {
   const onRunCode = async () => {
     try {
       const aceValue = aceEditorRef.current?.editor.getValue(); // Get the value directly from the editor
-      const response = await fetch("http://localhost:4000/api/exec", {
+      const response = await fetch("http://localhost:4000/api/exec/code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
