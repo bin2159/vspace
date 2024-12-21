@@ -1,4 +1,4 @@
-import { Calendar, BotMessageSquare, Code, Search, Settings } from "lucide-react"
+import { Calendar, BotMessageSquare, Code, Search, Settings, Ticket } from "lucide-react"
 
 import {
   Sidebar,
@@ -22,6 +22,11 @@ const items = [
     title: "Function execution",
     url: "editor",
     icon: Code,
+  },
+  {
+    title: "Ticket Board",
+    url: "ticketBoard",
+    icon: Ticket,
   },
   {
     title: "Utilities",
