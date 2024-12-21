@@ -6,7 +6,7 @@ export default function SideBarWrapper({ children }) {
     <aside className="relative w-full">
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full">
+      <main className="w-full p-3">
         <SidebarTrigger />
         {children}
       </main>
