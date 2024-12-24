@@ -1,4 +1,13 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { TicketDialog } from "./TicketDialogue";
 import SideBarWrapper from "@/components/resusable/SideBarWrapper/SideBarWrapper";
 
 export default function TicketBoard() {
@@ -9,12 +18,8 @@ export default function TicketBoard() {
       { title: "Task 1", assignee: "John Doe" },
       { title: "Task 2", assignee: "Alice Smith" },
     ],
-    "In Progress": [
-      { title: "Task 3", assignee: "Michael Brown" },
-    ],
-    "Done": [
-      { title: "Task 4", assignee: "Emma Johnson" },
-    ],
+    "In Progress": [{ title: "Task 3", assignee: "Michael Brown" }],
+    Done: [{ title: "Task 4", assignee: "Emma Johnson" }],
   }; // Example ticket data
 
   const allAssignees = [
@@ -45,23 +50,26 @@ export default function TicketBoard() {
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">Ticket Board</h1>
           <div className="flex items-center gap-4">
-            {/* Assignee Filter Dropdown */}
-            <select
-              className="px-3 py-2 border rounded-md shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={selectedAssignee}
-              onChange={(e) => setSelectedAssignee(e.target.value)}
-            >
-              <option value="All">All Assignees</option>
-              {allAssignees.map((assignee, index) => (
-                <option key={index} value={assignee}>
-                  {assignee}
-                </option>
-              ))}
-            </select>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button>{selectedAssignee}</Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuGroup>
+                  {allAssignees.map((assignee, index) => (
+                    <DropdownMenuItem
+                      key={index}
+                      value={assignee}
+                      onSelect={() => {setSelectedAssignee(assignee)}}
+                    >
+                      {assignee}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
             {/* Create Ticket Button */}
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600">
-              + Create Ticket
-            </button>
+            <TicketDialog />
           </div>
         </div>
 
