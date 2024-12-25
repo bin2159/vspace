@@ -1,10 +1,10 @@
 import { useDrag } from "react-dnd";
 const ITEM_TYPE = "TICKET";
 
-export default function Ticket({ ticket, currentStatus }) {
+export default function Ticket({ ticket, setSelectedTicket }) {
   const [{ isDragging }, dragRef] = useDrag({
     type: ITEM_TYPE,
-    item: { ...ticket, currentStatus },
+    item: ticket,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -13,6 +13,7 @@ export default function Ticket({ ticket, currentStatus }) {
   return (
     <div
       ref={dragRef}
+      onClick={() => setSelectedTicket(ticket)}
       className={`flex items-center justify-between p-4 bg-white rounded-md shadow-sm border hover:shadow-md cursor-pointer ${
         isDragging ? "opacity-50" : "opacity-100"
       }`}

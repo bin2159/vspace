@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { DndProvider} from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import DropdownWrapper from "@/components/resusable/SideBarWrapper/DropdownWrapper";
 import { TicketDialog } from "./TicketDialogue";
 import SideBarWrapper from "@/components/resusable/SideBarWrapper/SideBarWrapper";
 import TicketDetailsModal from "./TicketDetailsModal";
-
-const ITEM_TYPE = "TICKET";
+import TicketColumn from "./TicketColumn";
 
 export default function TicketBoard() {
   const statuses = ["To Do", "In Progress", "Done"]; // Ticket statuses
@@ -84,7 +83,7 @@ export default function TicketBoard() {
           {/* Ticket Board */}
           <div className="flex flex-1 gap-4 overflow-x-auto">
             {statuses.map((status) => (
-              <Column
+              <TicketColumn
                 key={status}
                 status={status}
                 tickets={filteredTickets[status] || []}
@@ -107,69 +106,69 @@ export default function TicketBoard() {
   );
 }
 
-function Column({ status, tickets, moveTicket, setSelectedTicket }) {
-  const [, dropRef] = useDrop({
-    accept: ITEM_TYPE,
-    drop: (item) => moveTicket(item, status),
-  });
+// function Column({ status, tickets, moveTicket, setSelectedTicket }) {
+//   const [, dropRef] = useDrop({
+//     accept: ITEM_TYPE,
+//     drop: (item) => moveTicket(item, status),
+//   });
 
-  return (
-    <div
-      ref={dropRef}
-      className="flex flex-col w-1/3 bg-gray-100 p-4 rounded-lg shadow-md"
-    >
-      {/* Column Header */}
-      <h2 className="text-lg font-semibold mb-4">{status}</h2>
+//   return (
+//     <div
+//       ref={dropRef}
+//       className="flex flex-col w-1/3 bg-gray-100 p-4 rounded-lg shadow-md"
+//     >
+//       {/* Column Header */}
+//       <h2 className="text-lg font-semibold mb-4">{status}</h2>
 
-      {/* Ticket List */}
-      <div className="flex flex-col gap-2">
-        {tickets.length > 0 ? (
-          tickets.map((ticket, index) => (
-            <Ticket
-              key={index}
-              ticket={ticket}
-              setSelectedTicket={setSelectedTicket}
-            />
-          ))
-        ) : (
-          <div className="text-gray-500 italic">No tickets</div>
-        )}
-      </div>
-    </div>
-  );
-}
+//       {/* Ticket List */}
+//       <div className="flex flex-col gap-2">
+//         {tickets.length > 0 ? (
+//           tickets.map((ticket, index) => (
+//             <Ticket
+//               key={index}
+//               ticket={ticket}
+//               setSelectedTicket={setSelectedTicket}
+//             />
+//           ))
+//         ) : (
+//           <div className="text-gray-500 italic">No tickets</div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
 
-function Ticket({ ticket, setSelectedTicket }) {
-  const [{ isDragging }, dragRef] = useDrag({
-    type: ITEM_TYPE,
-    item: ticket,
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
+// function Ticket({ ticket, setSelectedTicket }) {
+//   const [{ isDragging }, dragRef] = useDrag({
+//     type: ITEM_TYPE,
+//     item: ticket,
+//     collect: (monitor) => ({
+//       isDragging: monitor.isDragging(),
+//     }),
+//   });
 
-  return (
-    <div
-      ref={dragRef}
-      onClick={() => setSelectedTicket(ticket)}
-      className={`flex items-center justify-between p-4 bg-white rounded-md shadow-sm border hover:shadow-md cursor-pointer ${
-        isDragging ? "opacity-50" : "opacity-100"
-      }`}
-    >
-      {/* Ticket Title */}
-      <div className="text-sm font-medium">{ticket.title}</div>
+//   return (
+//     <div
+//       ref={dragRef}
+//       onClick={() => setSelectedTicket(ticket)}
+//       className={`flex items-center justify-between p-4 bg-white rounded-md shadow-sm border hover:shadow-md cursor-pointer ${
+//         isDragging ? "opacity-50" : "opacity-100"
+//       }`}
+//     >
+//       {/* Ticket Title */}
+//       <div className="text-sm font-medium">{ticket.title}</div>
 
-      {/* Assignee Circle */}
-      <div
-        className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500 text-white font-bold text-xs"
-        title={ticket.assignee}
-      >
-        {ticket.assignee
-          .split(" ")
-          .map((name) => name[0])
-          .join("")
-          .toUpperCase()}
-      </div>
-    </div>
-  );
-}
+//       {/* Assignee Circle */}
+//       <div
+//         className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500 text-white font-bold text-xs"
+//         title={ticket.assignee}
+//       >
+//         {ticket.assignee
+//           .split(" ")
+//           .map((name) => name[0])
+//           .join("")
+//           .toUpperCase()}
+//       </div>
+//     </div>
+//   );
+// }
