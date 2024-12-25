@@ -1,21 +1,15 @@
 import { useContext, useState } from "react";
 import { ChatContext } from "@/context/ChatContext";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuGroup,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button"; 
+import DropdownWrapper from "@/components/resusable/SideBarWrapper/DropdownWrapper";
 
 export default function SearchField() {
   const { chatText, setChatText, loading, setLoading } =
     useContext(ChatContext);
   const [promptText, setPromptText] = useState("");
   const [ai, setAi] = useState("gemini");
-
+  const allAis =['gemini','openai','claude']
   const getChatResponse = async () => {
     try {
       setLoading(true);
@@ -69,7 +63,7 @@ export default function SearchField() {
   return (
     <>
       <form onSubmit={handleSubmit} className="relative">
-        <div >
+        <div>
           <label htmlFor="promtInput" className="sr-only">
             Prompt Input
           </label>
@@ -89,28 +83,11 @@ export default function SearchField() {
 
           <div className="flex justify-between w-full mt-2.5">
             <div className="flex justify-start">
-              <DropdownMenu>
-                <DropdownMenuTrigger><Button>{ai}</Button></DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem
-                      onSelect={() => setAi("gemini")}
-                    >
-                      Gemini
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onSelect={() => setAi("openai")}
-                    >
-                      OpenAI
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onSelect={() => setAi("claude")}
-                    >
-                      Claude
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <DropdownWrapper
+                buttonName={ai}
+                menuItems={allAis}
+                onSelect={setAi} // Pass the setter function
+              />
             </div>
             <div className="flex justify-end">
               <Button type="submit" disabled={loading}>

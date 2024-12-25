@@ -10,7 +10,7 @@ import ChatBot from "./pages/Dashboard/AppFunctions/ChatBot/ChatBot";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Editor from "./pages/Dashboard/AppFunctions/FunctionExecution/FunctionExecution";
-import Ticket from "./pages/Dashboard/AppFunctions/Ticket/Ticket";
+import TicketBoard from "./pages/Dashboard/AppFunctions/Ticket/TicketBoard";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Route path="chat" element={<Chat />} />
           <Route path="editor" element={<Editor />} />
           <Route path="chatbot" element={<ChatBot />} />
-          <Route path="ticketBoard" element={<Ticket/>}/>
+          <Route path="ticketBoard" element={<TicketBoard/>}/>
         </Route>
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
